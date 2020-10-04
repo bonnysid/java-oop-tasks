@@ -2,6 +2,7 @@ package Tasks_3;
 
 import Tasks_2.SubComment;
 
+import javax.swing.event.ChangeEvent;
 import java.util.*;
 
 public class Post {
@@ -10,6 +11,7 @@ public class Post {
     private List<String> tags = new ArrayList<>();
     private List<SubComment> comments = new ListOfComments<>();
     private int rating;
+    private boolean hasComments = false;
 
     public Post(String title, String text, int rating) {
         this.title = title;
@@ -26,6 +28,7 @@ public class Post {
     }
 
     public Post setTitle(String title) {
+        if (!hasComments) throw new IllegalArgumentException("You cannot change title because this post have comments!");
         this.title = title;
         return this;
     }
@@ -35,9 +38,26 @@ public class Post {
     }
 
     public Post setText(String text) {
+        if (!hasComments) throw new IllegalArgumentException("You cannot change text because this post have comments!");
         this.text = text;
         return this;
     }
+
+    public boolean canChange() { return !hasComments; }
+
+    public Post increaseRating() {
+        if (rating == 10) throw new IllegalArgumentException("Rating cannot be more than 10");
+        this.rating++;
+        return this;
+    }
+
+    public Post decreaseRating() {
+        if (rating == 0) throw new IllegalArgumentException("Rating cannot be less than 0");
+        this.rating--;
+        return this;
+    }
+
+
 
     public List<String> getTags() {
         return tags;
@@ -63,11 +83,13 @@ public class Post {
     }
 
     public Post addComments(SubComment ...comments) {
+        hasComments = true;
         this.comments.addAll(Arrays.asList(comments));
         return this;
     }
 
     public Post addComments(String value, int rating) {
+        hasComments = true;
         this.comments.add(new SubComment(value, rating));
         return this;
     }
@@ -76,7 +98,7 @@ public class Post {
         return rating;
     }
 
-    public Post setRating(int rating) {
+    private Post setRating(int rating) {
         if (rating < 0 || rating > 10) throw new IllegalArgumentException("Rating can be: from 0 to 10!");
         else this.rating = rating;
         return this;

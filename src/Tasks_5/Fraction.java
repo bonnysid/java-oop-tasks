@@ -14,7 +14,7 @@ public class Fraction {
         setDenominator(denominator);
         this.numerator = numerator;
         this.isAutoReduce = isAutoReduce;
-        updateFraction();
+        reduce();
     }
 
 
@@ -27,13 +27,13 @@ public class Fraction {
         numerator = num.getNumerator();
         denominator = num.getDenominator();
         this.isAutoReduce = isAutoReduce;
-        updateFraction();
+        reduce();
     }
 
     public Fraction setDenominator(int denominator) {
         if (denominator == 0) throw new IllegalArgumentException("Denominator cannot be equals zero!");
         else this.denominator = denominator;
-        updateFraction();
+        reduce();
         return this;
     }
 
@@ -41,7 +41,7 @@ public class Fraction {
 
     public void setNumerator(int numerator) {
         this.numerator = numerator;
-        updateFraction();
+        reduce();
     }
 
     public boolean isAutoReduce() {
@@ -59,7 +59,7 @@ public class Fraction {
         String oldFraction = this.toString();
 
         numerator += num * denominator;
-        String notReduced = updateFraction().toString();
+        String notReduced = reduce().toString();
 
         System.out.println(oldFraction + " + " + num + " = " + (!isAutoReduce || notReduced.equals(this.toString()) ? this : notReduced + " = " + this));
         return this;
@@ -75,7 +75,7 @@ public class Fraction {
         } else {
             this.numerator += numerator;
         }
-        String notReduced = updateFraction().toString();
+        String notReduced = reduce().toString();
 
         System.out.println(oldFraction + " + " + numerator + "/" + denominator + " = " + (!isAutoReduce || notReduced.equals(this.toString()) ? this : notReduced + " = " + this));
         return this;
@@ -90,7 +90,7 @@ public class Fraction {
         String oldFraction = this.toString();
 
         denominator *= num;
-        String notReduced = updateFraction().toString();
+        String notReduced = reduce().toString();
 
         System.out.println(oldFraction + " / " + num + " = " + (!isAutoReduce || notReduced.equals(this.toString()) ? this : notReduced + " = " + this));
         return this;
@@ -102,7 +102,7 @@ public class Fraction {
 
         this.denominator *= numerator;
         this.numerator *= denominator;
-        String notReduced = updateFraction().toString();
+        String notReduced = reduce().toString();
 
         System.out.println(oldFraction + " / " + numerator + "/" + denominator + " = " + (!isAutoReduce ? this : notReduced + " = " + this));
         return this;
@@ -116,7 +116,7 @@ public class Fraction {
         String oldFraction = this.toString();
 
         numerator -= num * denominator;
-        String notReduced = updateFraction().toString();
+        String notReduced = reduce().toString();
 
         System.out.println(oldFraction + " - " + num + " = " + (!isAutoReduce || notReduced.equals(this.toString()) ? this : notReduced + " = " + this));
         return this;
@@ -132,7 +132,7 @@ public class Fraction {
         } else {
             this.numerator -= numerator;
         }
-        String notReduced = updateFraction().toString();
+        String notReduced = reduce().toString();
 
         System.out.println(oldFraction + " - " + numerator + "/" + denominator + " = " + (!isAutoReduce || notReduced.equals(this.toString()) ? this : notReduced + " = " + this));
         return this;
@@ -146,7 +146,7 @@ public class Fraction {
         String oldFraction = this.toString();
 
         numerator *= num;
-        String notReduced = updateFraction().toString();
+        String notReduced = reduce().toString();
 
         System.out.println(oldFraction + " * " + num + " = " + (!isAutoReduce || notReduced.equals(this.toString()) ? this : notReduced + " = " + this));
         return this;
@@ -158,7 +158,7 @@ public class Fraction {
 
         this.denominator *= denominator;
         this.numerator *= numerator;
-        String notReduced = updateFraction().toString();
+        String notReduced = reduce().toString();
 
         System.out.println(oldFraction + " * " + numerator + "/" + denominator + " = " + (!isAutoReduce || notReduced.equals(this.toString()) ? this : notReduced + " = " + this));
         return this;
@@ -198,7 +198,7 @@ public class Fraction {
 
     private void updateValue() { value = (double)numerator / (double)denominator; }
 
-    private Fraction updateFraction() {
+    private Fraction reduce() {
         updateValue();
         if (isAutoReduce) return reduceFraction();
         return this;

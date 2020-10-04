@@ -56,8 +56,15 @@ public class Student {
         return this;
     }
 
+    public double getAvgMarks() {
+        if (marks.isEmpty()) return 0;
+        int res = 0;
+        for (int mark : marks) res += mark;
+        return res / marks.size();
+    }
+
     private void checkForExcellent() {
-        if (marks.size() > 0) {
+        if (!marks.isEmpty()) {
             for( int mark : marks) {
                 if (badMarks.contains(mark)) {
                     isExcellent = false;

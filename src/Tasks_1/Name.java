@@ -20,16 +20,22 @@ public class Name {
         String surname;
         String patronymic;
 
-        public Builder(String name) {
+        public Builder(String name) { setName(name); }
+
+        public Builder setName(String name) {
+            if (name.trim().trim().equals("")) throw new IllegalArgumentException("Name cannot be empty!");
             this.name = name;
+            return this;
         }
 
         public Builder setPatronymic(String patronymic) {
+            if (patronymic.trim().trim().equals("")) throw new IllegalArgumentException("Patronymic cannot be empty!");
             this.patronymic = patronymic;
             return this;
         }
 
         public Builder setSurname(String surname) {
+            if (surname.trim().equals("")) throw new IllegalArgumentException("Surname cannot be empty!");
             this.surname = surname;
             return this;
         }
@@ -40,16 +46,19 @@ public class Name {
     }
 
     public Name setSurname(String surname) {
+        if (surname.trim().equals("")) throw new IllegalArgumentException("Surname cannot be empty!");
         this.surname = surname;
         return this;
     }
 
     public Name setPatronymic(String patronymic) {
+        if (patronymic.trim().trim().equals("")) throw new IllegalArgumentException("Patronymic cannot be empty!");
         this.patronymic = patronymic;
         return this;
     }
 
     public Name setName(String name) {
+        if (name.trim().trim().equals("")) throw new IllegalArgumentException("Name cannot be empty!");
         this.name = name;
         return this;
     }

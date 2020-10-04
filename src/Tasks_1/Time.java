@@ -15,6 +15,7 @@ public class Time {
 
     public void setSec(int seconds) {
         if (seconds < 0) throw new IllegalArgumentException("Time cannot be less than 0");
+        if (seconds > 24 * 60 * 60) throw new IllegalArgumentException("Time cannot be more than 24 hours");
         else this.seconds = seconds;
         this.hours = (seconds / (60 * 60)) % 24;
         this.minutes = (seconds / 60) % 60;

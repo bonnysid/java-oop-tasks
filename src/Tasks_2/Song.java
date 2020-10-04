@@ -7,6 +7,7 @@ public class Song {
     private String title;
     private List<String> authors = new ArrayList<>();
     private Album album;
+    private boolean hasAlbum = false;
 
 
     public Song(String title, Album album, String ...authors) {
@@ -17,10 +18,6 @@ public class Song {
 
     public Song(String title, String ...authors) {
         this(title, null, authors);
-    }
-
-    public Song(String title) {
-        this.title = title;
     }
 
     public Song setAuthors(String ...authors) {
@@ -38,6 +35,8 @@ public class Song {
     }
 
     public Song setAlbum(Album album) {
+        if (hasAlbum) throw new IllegalArgumentException("This song already has the album");
+        hasAlbum = true;
         this.album = album;
         if (!album.getSongs().contains(this)) album.addSongs(this);
         return this;

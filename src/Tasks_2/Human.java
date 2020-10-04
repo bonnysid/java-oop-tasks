@@ -62,6 +62,13 @@ public class Human {
         return fullName.getCopy();
     }
 
+    public String getName() { return fullName.getName(); }
+
+    public Human setName(String name) {
+        fullName.setName(name);
+        return this;
+    }
+
     public Human getDad() {
         return dad.getCopy();
     }

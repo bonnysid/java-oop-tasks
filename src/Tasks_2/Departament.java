@@ -20,7 +20,7 @@ public class Departament {
 
     public Departament setChef(Employee chef) {
         this.chef = chef;
-        if (chef != null) chef.setDepartament(this);
+        if (chef != null) chef.changeDepartament(this);
         return this;
     }
 

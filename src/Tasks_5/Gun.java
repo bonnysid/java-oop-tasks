@@ -71,6 +71,8 @@ public class Gun {
         return maxAmmo;
     }
 
+    public boolean isCharged() { return isCharged; }
+
     private Gun setAmmoInClip(int ammo) {
         if (this.ammo == 0) {
             System.out.println("You don't have ammo.");

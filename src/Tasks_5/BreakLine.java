@@ -9,8 +9,13 @@ public class BreakLine {
     private List<Point> points = new ArrayList<>();
 
     public BreakLine(Point...points) {
+        this(false, points);
+    }
+
+    public BreakLine (boolean isClosed, Point...points) {
         for(Point p : points)
             this.points.add(new Point(p.x, p.y));
+        if (isClosed) this.points.add(points[0]);
     }
 
     public BreakLine addPoints(Point ...points) {

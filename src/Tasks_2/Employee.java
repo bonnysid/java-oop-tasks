@@ -10,7 +10,7 @@ public class Employee {
 
     public Employee(String name, Departament departament) {
         this.name = name;
-        setDepartament(departament);
+        changeDepartament(departament);
     }
 
     public Employee setName(String name) {
@@ -18,7 +18,8 @@ public class Employee {
         return this;
     }
 
-    public Employee setDepartament(Departament departament) {
+    public Employee changeDepartament(Departament departament) {
+        this.departament.setChef(null);
         this.departament = departament;
         return this;
     }
