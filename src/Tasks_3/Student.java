@@ -60,7 +60,6 @@ public class Student {
         if (marks.size() > 0) {
             for( int mark : marks) {
                 if (badMarks.contains(mark)) {
-                    System.out.println(1);
                     isExcellent = false;
                     return;
                 }
