@@ -1,6 +1,8 @@
 package Tasks_5;
 
-public class Fraction {
+import java.util.Objects;
+
+public final class Fraction extends Number {
     private int numerator;
     private int denominator;
     private double value;
@@ -204,7 +206,39 @@ public class Fraction {
         return this;
     }
 
-    public double toFloat() { return value; }
+    @Override
+    public int intValue() {
+        return numerator / denominator;
+    }
+
+    @Override
+    public long longValue() {
+        return (long)numerator / (long)denominator;
+    }
+
+    @Override
+    public float floatValue() {
+        return (float)value;
+    }
+
+    @Override
+    public double doubleValue() {
+        return value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Fraction fraction = (Fraction) o;
+        return numerator == fraction.numerator &&
+                denominator == fraction.denominator;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numerator, denominator, value, isAutoReduce);
+    }
 
     @Override
     public String toString() {
