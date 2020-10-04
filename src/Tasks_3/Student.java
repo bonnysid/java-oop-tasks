@@ -1,6 +1,7 @@
 package Tasks_3;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,11 +9,11 @@ public class Student {
     private String name;
     private List<Integer> marks = new ArrayList<>();
     private boolean isExcellent = false;
+    private final List<Integer> badMarks = new ArrayList<>(Arrays.asList(2, 3, 4));
 
     public Student(String name, int ...marks) {
         this.name = name;
         addMarks(marks);
-        checkForExcellent();
     }
 
     public Student(String name) {
@@ -33,23 +34,23 @@ public class Student {
     }
 
     public Student addMarks(int ...marks) {
-        for (int mark : marks)
-            if (mark >= 2 && mark <= 5) this.marks.add(mark);
-            else throw new IllegalArgumentException("Mark cannot be < 2 and > 5");
+        for (int mark : marks) {
+            checkMark(mark);
+            this.marks.add(mark);
+        }
         checkForExcellent();
         return this;
     }
 
     public Student addMarks(List<Integer> marks) {
-        for (int mark : marks)
-            if (!(mark >= 2 && mark <= 5)) throw new IllegalArgumentException("Mark cannot be < 2 and > 5");
+        for (int mark : marks) checkMark(mark);
         this.marks.addAll(marks);
         checkForExcellent();
         return this;
     }
 
     public Student changeMark(int index, int mark) {
-        if (!(mark >= 2 && mark <= 5)) throw new IllegalArgumentException("Mark cannot be < 2 and > 5");
+        checkMark(mark);
         marks.set(index, mark);
         checkForExcellent();
         return this;
@@ -57,9 +58,9 @@ public class Student {
 
     private void checkForExcellent() {
         if (marks.size() > 0) {
-            int [] badMarks = {2, 3, 4};
-            for( int mark : badMarks) {
-                if (marks.contains(mark)) {
+            for( int mark : marks) {
+                if (badMarks.contains(mark)) {
+                    System.out.println(1);
                     isExcellent = false;
                     return;
                 }
@@ -67,6 +68,8 @@ public class Student {
             isExcellent = true;
         } else isExcellent = false;
     }
+
+    private void checkMark(int mark) { if (!(mark >= 2 && mark <= 5)) throw new IllegalArgumentException("Mark cannot be < 2 and > 5"); }
 
     @Override
     public String toString() {

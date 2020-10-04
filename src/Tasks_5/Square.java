@@ -7,7 +7,7 @@ public class Square {
     int length;
 
     public Square(Point start, int length) {
-        this.start = new Point(start.x, start,y);
+        this.start = new Point(start.x, start.y);
         this.length = length;
     }
 
