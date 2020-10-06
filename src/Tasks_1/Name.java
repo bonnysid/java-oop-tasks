@@ -16,26 +16,26 @@ public class Name {
     }
 
     public static class Builder {
-        String name;
-        String surname;
-        String patronymic;
+        private String name;
+        private String surname;
+        private String patronymic;
 
         public Builder(String name) { setName(name); }
 
         public Builder setName(String name) {
-            if (name.trim().trim().equals("")) throw new IllegalArgumentException("Name cannot be empty!");
+            if (name == null || name.trim().equals("")) throw new IllegalArgumentException("Name cannot be empty!");
             this.name = name;
             return this;
         }
 
         public Builder setPatronymic(String patronymic) {
-            if (patronymic.trim().trim().equals("")) throw new IllegalArgumentException("Patronymic cannot be empty!");
+            if (patronymic == null || patronymic.trim().equals("")) throw new IllegalArgumentException("Patronymic cannot be empty!");
             this.patronymic = patronymic;
             return this;
         }
 
         public Builder setSurname(String surname) {
-            if (surname.trim().equals("")) throw new IllegalArgumentException("Surname cannot be empty!");
+            if (surname == null && surname.trim().equals("")) throw new IllegalArgumentException("Surname cannot be empty!");
             this.surname = surname;
             return this;
         }
@@ -52,13 +52,13 @@ public class Name {
     }
 
     public Name setPatronymic(String patronymic) {
-        if (patronymic.trim().trim().equals("")) throw new IllegalArgumentException("Patronymic cannot be empty!");
+        if (patronymic.trim().equals("")) throw new IllegalArgumentException("Patronymic cannot be empty!");
         this.patronymic = patronymic;
         return this;
     }
 
     public Name setName(String name) {
-        if (name.trim().trim().equals("")) throw new IllegalArgumentException("Name cannot be empty!");
+        if (name.trim().equals("")) throw new IllegalArgumentException("Name cannot be empty!");
         this.name = name;
         return this;
     }
