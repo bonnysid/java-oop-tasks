@@ -9,7 +9,7 @@ public class Student {
     private String name;
     private List<Integer> marks = new ArrayList<>();
     private boolean isExcellent = false;
-    private final List<Integer> badMarks = new ArrayList<>(Arrays.asList(2, 3, 4));
+    private final static List<Integer> badMarks = new ArrayList<>(Arrays.asList(2, 3, 4));
 
     public Student(String name, int ...marks) {
         this.name = name;

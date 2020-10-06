@@ -3,6 +3,7 @@ package Tasks_5;
 import Tasks_1.Point;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BreakLine {
@@ -21,11 +22,14 @@ public class BreakLine {
     public BreakLine addPoints(Point ...points) {
         for(Point p : points)
             this.points.add(new Point(p.x, p.y));
+
         return this;
     }
 
     public BreakLine addPoints(List<Point> points) {
-        this.points.addAll(points);
+        for(Point p : points)
+            this.points.add(new Point(p.x, p.y));
+
         return this;
     }
 
