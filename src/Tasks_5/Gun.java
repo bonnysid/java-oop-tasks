@@ -6,8 +6,10 @@ public class Gun {
     private int ammoInClip = 0;
     private boolean isCharged = false;
 
-    public Gun(int ammo) {
-        this(ammo, 30);
+    public Gun() { maxAmmo = 30; }
+
+    public Gun(int maxAmmo) {
+        this(0, maxAmmo);
     }
 
     public Gun(int ammo, int maxAmmo) {
@@ -22,7 +24,6 @@ public class Gun {
             reload();
             if(!isCharged)
                 System.out.println("clack");
-
         }
         if (ammoInClip > 0) {
             System.out.println("boom");
@@ -39,7 +40,7 @@ public class Gun {
     public Gun addAmmo(int ammo) {
         if (ammo < 0) throw new IllegalArgumentException("You cannot add ammo less than zero!");
         else {
-            this.ammo = ammo;
+            this.ammo += ammo;
             setAmmoInClip(this.ammo);
         }
         return this;
@@ -79,14 +80,13 @@ public class Gun {
             isCharged = false;
         }
         else {
-            ammoInClip = chargedAmmo();
-            this.ammo -= chargedAmmo();
+            int tempAmmo = ammoInClip;
+            ammoInClip = chargedAmmo(ammoInClip);
+            this.ammo -= chargedAmmo(tempAmmo);
             isCharged = true;
         }
         return this;
     }
 
-    private int chargedAmmo() {
-        return ammo >= maxAmmo ? maxAmmo : (ammoInClip + ammo) % maxAmmo;
-    }
+    private int chargedAmmo(int ammoInClip) { return ammo >= maxAmmo ? maxAmmo : (ammoInClip + ammo) % maxAmmo; }
 }

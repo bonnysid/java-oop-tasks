@@ -1,5 +1,7 @@
 package Tasks_1;
 
+import java.util.Map;
+
 public class Time {
     private int seconds;
     private int minutes;
@@ -31,8 +33,8 @@ public class Time {
         return seconds;
     }
 
-    private String getZero(int x) {
-        return x < 10 ? "0" + x : Integer.toString(x);
+    public static String getZero(int x) {
+        return x < 10 ? (x < 0 ? "-0" : "0") + Math.abs(x) : Integer.toString(x);
 }
 
     @Override

@@ -4,7 +4,7 @@ import Tasks_1.Name;
 
 import java.util.logging.Handler;
 
-public class Human {
+public class Human implements Cloneable {
     private Name fullName;
     private int height;
     private Human dad;
@@ -24,7 +24,7 @@ public class Human {
     }
 
     public Human setFullName(Name fullName) {
-        this.fullName = fullName.getCopy();
+        this.fullName = fullName.clone();
         return this;
     }
 
@@ -39,14 +39,15 @@ public class Human {
             this.dad = null;
             return this;
         } else {
-            this.dad = dad.getCopy();
+            this.dad = dad.clone();
             if (sex != null) fullName.setPatronymic( "the " + (sex.equals("man") ? "son " : "daughter ") + "of " + this.dad.getFullName().getName());
             else fullName.setPatronymic("has the father " + this.dad.getFullName().getName());
+            if (fullName.getSurname() == null) fullName.setSurname(this.dad.getFullName().getSurname());
             return this;
         }
     }
-
-    public Human getCopy() {
+    @Override
+    public Human clone() {
         return new Human(this.getFullName(), height, sex);
     }
 
@@ -59,7 +60,7 @@ public class Human {
     }
 
     public Name getFullName() {
-        return fullName.getCopy();
+        return fullName.clone();
     }
 
     public String getName() { return fullName.getName(); }
@@ -70,7 +71,7 @@ public class Human {
     }
 
     public Human getDad() {
-        return dad.getCopy();
+        return dad.clone();
     }
 
     @Override

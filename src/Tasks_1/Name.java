@@ -1,6 +1,6 @@
 package Tasks_1;
 
-public class Name {
+public class Name implements Cloneable {
     private String name;
     private String surname;
     private String patronymic;
@@ -11,7 +11,8 @@ public class Name {
         this.patronymic = builder.patronymic;
     }
 
-    public Name getCopy() {
+    @Override
+    public Name clone() {
         return new Name.Builder(name).setSurname(surname).setPatronymic(patronymic).build();
     }
 
@@ -35,7 +36,7 @@ public class Name {
         }
 
         public Builder setSurname(String surname) {
-            if (surname == null && surname.trim().equals("")) throw new IllegalArgumentException("Surname cannot be empty!");
+            if (surname == null || surname.trim().equals("")) throw new IllegalArgumentException("Surname cannot be empty!");
             this.surname = surname;
             return this;
         }
@@ -46,19 +47,19 @@ public class Name {
     }
 
     public Name setSurname(String surname) {
-        if (surname.trim().equals("")) throw new IllegalArgumentException("Surname cannot be empty!");
+        if (surname == null || surname.trim().equals("")) throw new IllegalArgumentException("Surname cannot be empty!");
         this.surname = surname;
         return this;
     }
 
     public Name setPatronymic(String patronymic) {
-        if (patronymic.trim().equals("")) throw new IllegalArgumentException("Patronymic cannot be empty!");
+        if (patronymic == null || patronymic.trim().equals("")) throw new IllegalArgumentException("Patronymic cannot be empty!");
         this.patronymic = patronymic;
         return this;
     }
 
     public Name setName(String name) {
-        if (name.trim().equals("")) throw new IllegalArgumentException("Name cannot be empty!");
+        if (name == null || name.trim().equals("")) throw new IllegalArgumentException("Name cannot be empty!");
         this.name = name;
         return this;
     }
