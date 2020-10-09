@@ -1,12 +1,6 @@
 package Tasks_10;
 
-public class Point {
-    public int x;
-
-    public Point(int x) { this.x = x; }
-
-    @Override
-    public String toString() {
-        return "{" + x + "};";
-    }
+public interface Point {
+    public Point clone();
+    public boolean equals(Object o);
 }

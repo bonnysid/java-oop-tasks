@@ -1,7 +1,13 @@
 package Tasks_10;
 
-public interface Figure {
-    double length();
+import Tasks_5.BreakLine;
+
+import java.util.List;
+
+public interface Figure<T extends Point2D> extends SimpleFigure {
+    double perimeter();
+
     double area();
-    String toString();
+
+    BreakLine toBreakLine();
 }

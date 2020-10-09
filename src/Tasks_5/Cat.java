@@ -1,6 +1,6 @@
 package Tasks_5;
 
-public class Cat {
+public class Cat implements Mewable {
     private final String name;
 
     public Cat(String name) {

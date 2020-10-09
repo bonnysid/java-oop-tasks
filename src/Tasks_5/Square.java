@@ -1,22 +1,31 @@
 package Tasks_5;
 
-import Tasks_1.Point;
+import Tasks_10.Figure;
+import Tasks_10.Point2D;
 
-public class Square {
-    private Point start;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class Square implements Figure {
+    private Point2D start;
+    private Point2D secondPoint;
+    private Point2D thirdPoint;
+    private Point2D fourthPoint;
     private int length;
     private int perimeter;
-    private int array;
+    private int area;
 
-    public Square(Point start, int length) {
-        changeStartPoint(start);
+    public Square(Point2D start, int length) {
+        setStartPoint(start);
         lengthSide(length);
-        perimeter = length * 4;
-        array = length * length;
+        setOtherPoints(length);
+        perimeter(length, length);
+        area(length, length);
     }
 
-    public BreakLine getBreakLine() {
-        return new BreakLine(true, new Point(start.x, start.y), new Point(start.x + length, start.y), new Point(start.x + length, start.y - length), new Point(start.x, start.y - length));
+    public BreakLine toBreakLine() {
+        return new BreakLine(true, start.clone(), secondPoint.clone(), thirdPoint.clone(), fourthPoint.clone());
     }
 
     public Square lengthSide(int length) {
@@ -27,16 +36,35 @@ public class Square {
 
     public int lengthSide() { return length; }
 
-    public Square changeStartPoint(Point start) {
-        this.start = new Point(start.x, start.y);
-        return this;
+    public void setStartPoint(Point2D start) { this.start = start.clone(); }
+
+    public Point2D getStartPoint() { return start.clone(); }
+
+    public double perimeter() { return perimeter; }
+
+    protected void perimeter(int a, int b) {
+        perimeter = a * 2 + b * 2;
     }
 
-    public Point getStartPoint() { return new Point(start.x, start.y); }
+    public double length() { return perimeter; }
 
-    public int perimeter() { return perimeter; }
+    public double area() { return area; }
 
-    public int array() { return array; }
+    @Override
+    public List<Point2D> getAllPoints() {
+        return new ArrayList<Point2D>(Arrays.asList(start.clone()));
+    }
+
+    protected void area(int a, int b) { area = a * b; }
+
+    protected void setOtherPoints(int secondLength) {
+        secondPoint = start.clone();
+        secondPoint.x += length;
+        thirdPoint = secondPoint.clone();
+        thirdPoint.y -= secondLength;
+        fourthPoint = start.clone();
+        fourthPoint.y -= secondLength;
+    }
 
     @Override
     public String toString() {

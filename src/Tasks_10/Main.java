@@ -1,13 +1,8 @@
 package Tasks_10;
 
+import Tasks_5.Square;
+
 public class Main {
     public static void main(String[] args) {
-//        Sparrow sparrow = new Sparrow();
-        Parrot parrot = new Parrot("dima");
-//        Cuckoo cuckoo = new Cuckoo();
-
-//        sparrow.sing();
-        parrot.sing(5, 10);
-//        cuckoo.sing();
     }
 }

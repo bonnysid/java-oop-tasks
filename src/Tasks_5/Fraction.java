@@ -1,5 +1,9 @@
 package Tasks_5;
 
+import Tasks_10.Figure;
+
+import javax.print.attribute.standard.NumberUpSupported;
+import java.util.Arrays;
 import java.util.Objects;
 
 public final class Fraction extends Number {
@@ -86,6 +90,12 @@ public final class Fraction extends Number {
     public Fraction plus(Fraction num) { return plus(num.getNumerator(), num.getDenominator()); }
 
     public Fraction plus(String fraction) { return plus(translateStringToFraction(fraction)); }
+
+    public static double sum(Number ...nums) {
+        double sum = 0;
+        for (Number n : nums) { sum += n.doubleValue(); }
+        return sum;
+    }
 
     public Fraction div(int num) {
         if (numerator == 0) throw new IllegalArgumentException("Denominator cannot be equals zero!");

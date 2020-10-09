@@ -1,6 +1,6 @@
 package Tasks_5;
 
-public class Gun {
+public class Gun implements Cloneable{
     private int ammo = 0;
     private final int maxAmmo;
     private int ammoInClip = 0;
@@ -88,5 +88,15 @@ public class Gun {
         return this;
     }
 
+    @Override
+    public Gun clone() {
+        return new Gun(ammo, maxAmmo);
+    }
+
     private int chargedAmmo(int ammoInClip) { return ammo >= maxAmmo ? maxAmmo : (ammoInClip + ammo) % maxAmmo; }
+
+    @Override
+    public String toString() {
+        return "Gun with ammo in clip = " + ammoInClip;
+    }
 }

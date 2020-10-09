@@ -21,10 +21,15 @@ public class MachineGun extends Gun {
         this.rateFire = rateFire;
     }
 
-    public MachineGun(int ammo, int maxAmmo, int rateFire) {
+    public MachineGun(int maxAmmo, int rateFire, int ammo) {
         super(ammo, maxAmmo);
         if (rateFire < 0) throw new IllegalArgumentException("Rate of fire cannot be less than zero!");
         this.rateFire = rateFire;
+    }
+
+    @Override
+    public MachineGun clone() {
+        return new MachineGun(super.getMaxAmmo(), rateFire, super.getAmmo());
     }
 
     public void shoot() { for (int i = 0; i < rateFire; i++) super.shoot(); }
