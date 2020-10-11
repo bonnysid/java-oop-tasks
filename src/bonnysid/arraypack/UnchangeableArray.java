@@ -1,51 +1,51 @@
 package bonnysid.arraypack;
 
-public class UnchangeableIntArray {
-    private int[] arr = new int[100];
+public class UnchangeableArray<T> {
+    private Object[] arr = new Object[100];
     private int size = 0;
     private int realSize = 100;
 
-    public UnchangeableIntArray(int realSize) {
-        this.arr = new int[realSize];
+    public UnchangeableArray(int realSize) {
+        this.arr = new Object[realSize];
         this.realSize = realSize;
     }
 
-    public UnchangeableIntArray(int ...arr) {
+    public UnchangeableArray(T ...arr) {
         setArr(arr);
     }
 
-    private void setArr(int ...arr) {
+    private void setArr(T ...arr) {
         this.arr = arr;
         realSize = arr.length;
         size = arr.length;
     }
 
-    public int get(int index) {
+    public T get(int index) {
         if (index > realSize) throw new ArrayIndexOutOfBoundsException("Invalid index " + index + ", size of array is " + size);
-        return arr[index];
+        return (T)arr[index];
     }
 
-    public UnchangeableIntArray set(int index, int value) {
+    public UnchangeableArray set(int index, T value) {
         if (index > realSize) throw new ArrayIndexOutOfBoundsException("Invalid index" + index + ", size of array is " + realSize);
         arr[index] = value;
         return this;
     }
 
-    public UnchangeableIntArray add(int num) {
+    public UnchangeableArray add(T num) {
         if (size == realSize) throw new ArrayIndexOutOfBoundsException("Out bound of array, size of array is " + size);
         arr[size++] = num;
         return this;
     }
 
-    public UnchangeableIntArray add(int ...arr) {
+    public UnchangeableArray add(T ...arr) {
         if (size + arr.length == realSize) throw new ArrayIndexOutOfBoundsException("Out bound of array, size of array is " + size);
         System.arraycopy(arr, 0, this.arr, size, arr.length);
         return this;
     }
 
-    public UnchangeableIntArray remove(int index) {
+    public UnchangeableArray remove(int index) {
         if (index > realSize) throw new ArrayIndexOutOfBoundsException("Out bound of array, size of array is " + realSize);
-        int[] newArr = new int[realSize];
+        Object[] newArr = new Object[realSize];
         System.arraycopy(this.arr, 0, newArr, 0, index);
         System.arraycopy(this.arr, index + 1, newArr, index, this.arr.length - index - 1);
         this.arr = newArr;
