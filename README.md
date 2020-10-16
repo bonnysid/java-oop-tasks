@@ -61,7 +61,6 @@ In this repository you can see solutions of OOP tasks.
 - 10.4 Points.
 - 10.5 Figure.
 - 11.2 Sum.
-- 11.1 Sniper.
 6. The **Mediapack** includes block solutions:
 - 1.2 Comment.
 - 2.5 Commenting of comments.
