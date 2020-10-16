@@ -1,4 +1,4 @@
-package bonnysid.arraypack;
+package bonnysid.structurepack;
 
 public class Sorts {
     public static void sortArrayByLength(String[] arr) {

@@ -1,4 +1,4 @@
-package bonnysid.arraypack;
+package bonnysid.structurepack;
 
 public class UnchangeableArray<T> {
     private Object[] arr = new Object[100];

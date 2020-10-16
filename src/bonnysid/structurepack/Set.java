@@ -1,26 +1,25 @@
-package bonnysid.arraypack;
+package bonnysid.structurepack;
 
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Array<T> {
+public class Set<T> {
     private Object[] arr = new Object[100];
     private int size = 0;
     private int realSize = 100;
     private int SIZE_STEP = 50;
 
-    public Array(T ...arr) {
-        setArr(arr);
+    public Set() {}
+
+    public Set(Set hashTable) {
+        setHashTable(hashTable);
     }
 
-    public void setArr(T ...arr) {
-        if (arr.length > realSize) {
-            SIZE_STEP = arr.length / 2;
-            this.arr = new Object[arr.length + SIZE_STEP];
-        }
-        System.arraycopy(arr, 0, this.arr, 0, arr.length);
+    public void setHashTable(Set hashTable) {
+        if (checkForGrow(hashTable.size())) growUp(hashTable.size());
+        for (int i = 0; i < hashTable.size(); i++) this.arr[i] = hashTable.get(i);
         realSize = this.arr.length;
-        size = arr.length;
+        size = hashTable.size();
     }
 
     public T get(int index) {
@@ -28,43 +27,40 @@ public class Array<T> {
         return (T)arr[index];
     }
 
-    public Array set(int index, T value) {
+    public Set<T> set(int index, T value) {
         if (index > size) throw new ArrayIndexOutOfBoundsException("Invalid index" + index + ", size of array is " + size);
         arr[index] = value;
         return this;
     }
 
-    public Array add(T num) {
-        if (size == realSize) {
-            SIZE_STEP = realSize / 2;
-            Object[] newArr = new Object[realSize + SIZE_STEP];
-            System.arraycopy(arr, 0, newArr, 0, arr.length);
-            arr = newArr;
-        }
-        arr[size++] = num;
-        return this;
+    public boolean add(T item) {
+        if (contains(item)) return false;
+        if (checkForGrow()) growUp();
+        arr[size++] = item;
+        return true;
     }
 
-    public Array add(T ...arr) {
-        if (size + arr.length == realSize) {
-            SIZE_STEP = (realSize + arr.length) / 2;
-            Object[] newArr = new Object[realSize + arr.length + SIZE_STEP];
-            System.arraycopy(this.arr, 0, newArr, 0, this.arr.length);
-            System.arraycopy(arr, 0, newArr, size, arr.length);
-            this.arr = newArr;
-        } else System.arraycopy(arr, 0, this.arr, size, arr.length);
-        size += arr.length;
-        return this;
+    public boolean add(T ...arr) {
+        if (checkForGrow(arr.length)) growUp(arr.length);
+        for (int i = 0; i < arr.length; i++) add(arr[i]);
+        return true;
     }
 
-    public Array remove(int index) {
+    public boolean remove(int index) {
         if (index > size) throw new ArrayIndexOutOfBoundsException("Out bound of array, size of array is " + size);
         Object[] newArr = new Object[realSize];
         System.arraycopy(this.arr, 0, newArr, 0, index);
         System.arraycopy(this.arr, index + 1, newArr, index, this.arr.length - index - 1);
         this.arr = newArr;
         size--;
-        return this;
+        return true;
+    }
+
+    public boolean remove(T item) {
+        int index = indexOf(item);
+        if (index == -1) return false;
+        remove(index);
+        return true;
     }
 
     public Object[] toArray() {
@@ -77,11 +73,44 @@ public class Array<T> {
 
     public int size() { return size; }
 
+    public int indexOf(T searchItem) {
+        for (int i = 0; i < size; i++) { if (searchItem.equals(arr[i])) return i; }
+        return -1;
+    }
+
+    public boolean contains(T searchItem) {
+        for (Object item : arr) { if (searchItem.equals(item)) return true; }
+        return false;
+    }
+
+    private boolean checkForGrow(int checkSize) {
+        if (checkSize > realSize) return true;
+        return size == realSize;
+    }
+
+    private boolean checkForGrow() { return checkForGrow(0); }
+
+    private void growUp(int checkSize) {
+        if (checkSize != 0) {
+            SIZE_STEP = checkSize / 2;
+            Object[] newArr = new Object[checkSize + SIZE_STEP];
+            System.arraycopy(this.arr, 0, newArr, 0, size());
+            this.arr = newArr;
+        } else {
+            SIZE_STEP = size() / 2;
+            Object[] newArr = new Object[realSize + SIZE_STEP];
+            System.arraycopy(this.arr, 0, newArr, 0, size());
+            this.arr = newArr;
+        }
+    }
+
+    private void growUp() { growUp(0); }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Array<T> array = (Array<T>) o;
+        Set<T> array = (Set<T>) o;
         return size == array.size &&
                 realSize == array.realSize &&
                 Arrays.equals(arr, array.arr);

@@ -1,4 +1,4 @@
-package bonnysid.arraypack;
+package bonnysid.structurepack;
 
 public class HashTable<T, K> {
     private Object [] keys = new Object[100];
