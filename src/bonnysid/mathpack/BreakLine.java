@@ -4,33 +4,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BreakLine implements SimpleFigure {
-    private List<Point2D> points = new ArrayList<>();
+    private List<Point> points = new ArrayList<>();
 
-    public BreakLine(Point2D...points) {
+    public BreakLine(Point...points) {
         this(false, points);
     }
 
-    public BreakLine (boolean isClosed, Point2D...points) {
-        for(Point2D p : points)
+    public BreakLine (boolean isClosed, Point...points) {
+        for(Point p : points)
             this.points.add(p.clone());
         if (isClosed) this.points.add(points[0]);
     }
 
-    public BreakLine addPoints(Point2D ...points) {
-        for(Point2D p : points)
+    public BreakLine addPoints(Point ...points) {
+        for(Point p : points)
             this.points.add(p.clone());
 
         return this;
     }
 
-    public BreakLine addPoints(List<Point2D> points) {
-        for(Point2D p : points)
+    public BreakLine addPoints(List<Point> points) {
+        for(Point p : points)
             this.points.add(p.clone());
 
         return this;
     }
 
-    public BreakLine changePoint(int index, Point2D point) {
+    public BreakLine addPoints(BreakLine breakLine) {
+        List<Point> points = breakLine.getAllPoints();
+        return addPoints(points);
+    }
+
+    public BreakLine addPoints(BreakLine ...breakLines) {
+        for (BreakLine breakLine : breakLines) addPoints(breakLine);
+        return this;
+    }
+
+    public BreakLine changePoint(int index, Point point) {
         this.points.set(index, point.clone());
         return this;
     }
@@ -38,22 +48,27 @@ public class BreakLine implements SimpleFigure {
     public double length() {
         int res = 0;
         if (points.size() > 1) {
-            for (int i = 1; i < points.size(); i++) res += calcLengthLine(points.get(i - 1), points.get(i));
+            for (int i = 1; i < points.size(); i++) res += calcLengthLine(new Line(points.get(i - 1), points.get(i)));
         } else return 0;
         return res;
     }
 
     @Override
-    public Point2D getStartPoint() { return points.get(0).clone(); }
+    public Point getStartPoint() { return points.get(0).clone(); }
 
     @Override
-    public void setStartPoint(Point2D p) { points.set(0, p.clone()); }
+    public void setStartPoint(Point p) { points.set(0, p.clone()); }
 
     @Override
-    public List<Point2D> getAllPoints() { return (ArrayList<Point2D>)new ArrayList<Point2D>(points).clone(); }
+    public List<Point> getAllPoints() { return (ArrayList<Point>)new ArrayList<Point>(points).clone(); }
 
-    public List<Point2D> getPoints() {
-        return new ArrayList<Point2D>(points);
+    @Override
+    public BreakLine toBreakLine() {
+        return this;
+    }
+
+    public List<Point> getPoints() {
+        return new ArrayList<Point>(points);
     }
 
     @Override

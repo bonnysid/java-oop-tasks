@@ -1,42 +1,56 @@
 package bonnysid.mathpack;
 
-public class Line {
-    private Point2D start;
-    private Point2D end;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-    public Line(Point2D start, Point2D end) {
-        this.start = new Point2D(start.x, start.y);
-        this.end = new Point2D(end.x, end.y);
+public class Line implements SimpleFigure{
+    private Point start;
+    private Point end;
+
+    public Line(Point start, Point end) {
+        this.start = start.clone();
+        this.end = end.clone();
     }
 
     public Line(int x1, int y1, int x2, int y2) {
-        this(new Point2D(x1, y1), new Point2D(x2, y2));
+        this(new Point(x1, y1), new Point(x2, y2));
     }
 
-    public Line(Point2D end){
-        this(new Point2D(0,0), end);
+    public Line(Point end){
+        this(new Point(0,0), end);
     }
 
-    public void setStart(Point2D start) {
-        this.start = new Point2D(start.x, start.y);
+    public void setStartPoint(Point start) {
+        this.start = start.clone();
     }
 
-    public void setEnd(Point2D end) {
-        this.end = new Point2D(end.x, end.y);
+    @Override
+    public List<Point> getAllPoints() {
+        return new ArrayList<>(Arrays.asList(start, end));
     }
 
-    public Point2D getStart() {
+    @Override
+    public BreakLine toBreakLine() {
+        return new BreakLine(start.clone(), end.clone());
+    }
+
+    public void setEnd(Point end) {
+        this.end = end.clone();
+    }
+
+    public Point getStartPoint() {
         return start;
     }
 
-    public Point2D getEnd() {
+    public Point getEnd() {
         return end;
     }
 
-    public int length() {
-        int x = start.x - end.x;
-        int y = start.y - end.y;
-        return (int)Math.sqrt(x * x + y * y);
+    public double length() {
+        int x = start.get('x') - end.get('x');
+        int y = start.get('y') - end.get('y');
+        return Math.sqrt(x * x + y * y);
     }
 
     @Override

@@ -3,7 +3,7 @@ package bonnysid.mathpack;
 public class Rectangle extends Square {
     private int lengthSecondSide;
 
-    public Rectangle(Point2D start, int lengthFirstSide, int lengthSecondSide) {
+    public Rectangle(Point start, int lengthFirstSide, int lengthSecondSide) {
         super(start, lengthFirstSide);
         secondLengthSide(lengthSecondSide);
         setOtherPoints(lengthSecondSide);

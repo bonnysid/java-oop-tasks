@@ -5,15 +5,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Square implements Figure {
-    private Point2D start;
-    private Point2D secondPoint;
-    private Point2D thirdPoint;
-    private Point2D fourthPoint;
+    private Point start;
+    private Point secondPoint;
+    private Point thirdPoint;
+    private Point fourthPoint;
     private int length;
     private int perimeter;
     private int area;
 
-    public Square(Point2D start, int length) {
+    public Square(Point start, int length) {
         setStartPoint(start);
         lengthSide(length);
         setOtherPoints(length);
@@ -33,9 +33,9 @@ public class Square implements Figure {
 
     public int lengthSide() { return length; }
 
-    public void setStartPoint(Point2D start) { this.start = start.clone(); }
+    public void setStartPoint(Point start) { this.start = start.clone(); }
 
-    public Point2D getStartPoint() { return start.clone(); }
+    public Point getStartPoint() { return start.clone(); }
 
     public double perimeter() { return perimeter; }
 
@@ -48,19 +48,19 @@ public class Square implements Figure {
     public double area() { return area; }
 
     @Override
-    public List<Point2D> getAllPoints() {
-        return new ArrayList<Point2D>(Arrays.asList(start.clone()));
+    public List<Point> getAllPoints() {
+        return new ArrayList<Point>(Arrays.asList(start.clone(), secondPoint.clone(), thirdPoint.clone(), thirdPoint.clone()));
     }
 
     protected void area(int a, int b) { area = a * b; }
 
     protected void setOtherPoints(int secondLength) {
         secondPoint = start.clone();
-        secondPoint.x += length;
+        secondPoint.addToCoord('x', length);
         thirdPoint = secondPoint.clone();
-        thirdPoint.y -= secondLength;
+        thirdPoint.addToCoord('y', -secondLength);
         fourthPoint = start.clone();
-        fourthPoint.y -= secondLength;
+        fourthPoint.addToCoord('y', -secondLength);
     }
 
     @Override

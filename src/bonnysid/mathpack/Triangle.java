@@ -5,9 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Triangle implements Figure {
-    private Point2D firstPoint;
-    private Point2D secondPoint;
-    private Point2D thirdPoint;
+    private Point firstPoint;
+    private Point secondPoint;
+    private Point thirdPoint;
     private double firstLine;
     private double secondLine;
     private double thirdLine;
@@ -15,7 +15,7 @@ public class Triangle implements Figure {
     private double area;
     private double perimeter;
 
-    public Triangle(Point2D firstPoint, Point2D secondPoint, Point2D thirdPoint) {
+    public Triangle(Point firstPoint, Point secondPoint, Point thirdPoint) {
         if (checkForEquals(firstPoint, secondPoint, thirdPoint)) throw new IllegalArgumentException("Points cannot be equals between themselves!");
         this.firstPoint = firstPoint.clone();
         this.secondPoint = secondPoint.clone();
@@ -23,11 +23,11 @@ public class Triangle implements Figure {
         calc();
     }
 
-    public void setSecondPoint(Point2D p) {
+    public void setSecondPoint(Point p) {
         secondPoint = p.clone();
     }
 
-    public void setThirdPoint(Point2D p) {
+    public void setThirdPoint(Point p) {
         thirdPoint = p.clone();
     }
 
@@ -40,17 +40,17 @@ public class Triangle implements Figure {
     }
 
     @Override
-    public List<Point2D> getAllPoints() {
-        return new ArrayList<Point2D>(Arrays.asList(firstPoint.clone(), secondPoint.clone(), thirdPoint.clone()));
+    public List<Point> getAllPoints() {
+        return new ArrayList<Point>(Arrays.asList(firstPoint.clone(), secondPoint.clone(), thirdPoint.clone()));
     }
 
     @Override
     public BreakLine toBreakLine() { return new BreakLine(true, firstPoint.clone(), secondPoint.clone(), thirdPoint.clone()); }
 
-    private void calcLengthLines(Point2D firstPoint, Point2D secondPoint, Point2D thirdPoint) {
-        firstLine = calcLengthLine(firstPoint, secondPoint);
-        secondLine = calcLengthLine(secondPoint, thirdPoint);
-        thirdLine = calcLengthLine(thirdPoint, firstPoint);
+    private void calcLengthLines(Point firstPoint, Point secondPoint, Point thirdPoint) {
+        firstLine = calcLengthLine(new Line(firstPoint, secondPoint));
+        secondLine = calcLengthLine(new Line(secondPoint, thirdPoint));
+        thirdLine = calcLengthLine(new Line(thirdPoint, firstPoint));
     }
 
     private void calc() {
@@ -60,7 +60,7 @@ public class Triangle implements Figure {
         area();
     }
 
-    private boolean checkForEquals(Point2D firstPoint, Point2D secondPoint, Point2D thirdPoint) {
+    private boolean checkForEquals(Point firstPoint, Point secondPoint, Point thirdPoint) {
         return firstPoint.equals(secondPoint) || firstPoint.equals(thirdPoint) || secondPoint.equals(thirdPoint);
     }
 
@@ -75,12 +75,12 @@ public class Triangle implements Figure {
     }
 
     @Override
-    public Point2D getStartPoint() {
+    public Point getStartPoint() {
         return firstPoint.clone();
     }
 
     @Override
-    public void setStartPoint(Point2D p) {
+    public void setStartPoint(Point p) {
         firstPoint = p.clone();
     }
 

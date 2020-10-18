@@ -1,19 +1,30 @@
 package bonnysid.mathpack;
 
+import java.util.Arrays;
 import java.util.List;
 
-public interface SimpleFigure<T extends Point2D> {
+public interface SimpleFigure {
     double length();
 
-    T getStartPoint();
+    Point getStartPoint();
 
-    void setStartPoint(T p);
+    void setStartPoint(Point p);
 
-    List<Point2D> getAllPoints();
+    List<Point> getAllPoints();
 
-    default double calcLengthLine(Point2D start, Point2D end) {
-        int x = start.x - end.x;
-        int y = start.y - end.y;
-        return Math.sqrt(x * x + y * y);
+    BreakLine toBreakLine();
+
+    default double calcLengthLine(Line ...lines) {
+        return Arrays.asList(lines).stream()
+                .map(line -> line.length())
+                .reduce(0., (total, length) -> total + length);
+    }
+
+    static BreakLine getBreakLine(SimpleFigure ...figures) {
+        return Arrays.asList(figures).stream()
+                .map(figure -> figure.toBreakLine())
+                .reduce((breakLine, breakLine2) -> breakLine.addPoints(breakLine2))
+                .get();
+
     }
 }
