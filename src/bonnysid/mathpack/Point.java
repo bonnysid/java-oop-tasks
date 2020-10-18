@@ -28,19 +28,30 @@ public class Point implements Cloneable {
     }
 
     public int get(char coord) {
-        if (!checkCoord(coord)) throw new IllegalArgumentException(coord + " is not contains in this point, legal coords: " + coords);
+        if (!checkCoord(coord)) throw new IllegalArgumentException(coord + " is not contains in this point, legal coords: " + coords.keySet());
         return coords.get(coord);
     }
 
     public Point set(char coord, int value) {
-        if (!checkCoord(coord)) throw new IllegalArgumentException(coord + " is not contains in this point, legal coords: " + coords);
+        if (!checkCoord(coord)) throw new IllegalArgumentException(coord + " is not contains in this point, legal coords: " + coords.keySet());
         coords.replace(coord, value);
         return this;
     }
 
     public Point addToCoord(char coord, int value) {
-        if (!checkCoord(coord)) throw new IllegalArgumentException(coord + " is not contains in this point, legal coords: " + coords);
+        if (!checkCoord(coord)) throw new IllegalArgumentException(coord + " is not contains in this point, legal coords: " + coords.keySet());
         return set(coord, get(coord) + value);
+    }
+
+    public boolean isPoint1D() { return coords.size() == 1; }
+
+    public boolean isPoint2D() { return coords.size() == 2; }
+
+    public boolean isPoint3D() { return coords.size() == 3; }
+
+    public Point checkPointFor2D() {
+        if (!isPoint2D()) throw new IllegalArgumentException("Point must be 2D!");
+        return this;
     }
 
     private boolean checkCoord(char coord) { return coords.containsKey(coord); }

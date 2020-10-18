@@ -33,7 +33,7 @@ public class Square implements Figure {
 
     public int lengthSide() { return length; }
 
-    public void setStartPoint(Point start) { this.start = start.clone(); }
+    public void setStartPoint(Point start) { this.start = start.clone().checkPointFor2D(); }
 
     public Point getStartPoint() { return start.clone(); }
 
