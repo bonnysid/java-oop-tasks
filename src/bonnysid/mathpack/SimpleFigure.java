@@ -15,17 +15,22 @@ public interface SimpleFigure {
     BreakLine toBreakLine();
 
     default double calcLengthLine(Line ...lines) {
-        return Arrays.asList(lines).stream()
-                .map(line -> line.length())
-                .reduce(0., (total, length) -> total + length);
+        return Arrays.stream(lines)
+                .map(Line::length)
+                .reduce(0., Double::sum);
     }
 
-    static BreakLine getBreakLine(SimpleFigure ...figures) {
-        return Arrays.asList(figures).stream()
-                .map(figure -> figure.toBreakLine())
-                .reduce((breakLine, breakLine2) -> breakLine.addPoints(breakLine2))
-                .get();
+    default double calcLengthLine(Point start, Point end) {
+        int x = start.get('x') - end.get('x');
+        int y = start.get('y') - end.get('y');
+        return Math.sqrt(x * x + y * y);
+    }
 
+    static BreakLine toBreakLine(SimpleFigure ...figures) {
+        return Arrays.stream(figures)
+                .map(SimpleFigure::toBreakLine)
+                .reduce(BreakLine::addPoints)
+                .get();
     }
 
 }

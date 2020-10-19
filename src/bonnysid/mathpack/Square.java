@@ -22,7 +22,7 @@ public class Square implements Figure {
     }
 
     public BreakLine toBreakLine() {
-        return new BreakLine(true, start.clone(), secondPoint.clone(), thirdPoint.clone(), fourthPoint.clone());
+        return new ClosedBreakLine(getAllPoints());
     }
 
     public Square lengthSide(int length) {

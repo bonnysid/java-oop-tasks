@@ -45,12 +45,12 @@ public class Triangle implements Figure {
     }
 
     @Override
-    public BreakLine toBreakLine() { return new BreakLine(true, firstPoint.clone(), secondPoint.clone(), thirdPoint.clone()); }
+    public BreakLine toBreakLine() { return new ClosedBreakLine(firstPoint.clone(), secondPoint.clone(), thirdPoint.clone()); }
 
     private void calcLengthLines(Point firstPoint, Point secondPoint, Point thirdPoint) {
-        firstLine = calcLengthLine(new Line(firstPoint, secondPoint));
-        secondLine = calcLengthLine(new Line(secondPoint, thirdPoint));
-        thirdLine = calcLengthLine(new Line(thirdPoint, firstPoint));
+        firstLine = calcLengthLine(firstPoint, secondPoint);
+        secondLine = calcLengthLine(secondPoint, thirdPoint);
+        thirdLine = calcLengthLine(thirdPoint, firstPoint);
     }
 
     private void calc() {
