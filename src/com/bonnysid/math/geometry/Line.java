@@ -10,8 +10,8 @@ public class Line implements SimpleFigure{
     private Point end;
 
     public Line(Point start, Point end) {
-        this.start = start.clone();
-        this.end = end.clone();
+        setStartPoint(start);
+        setEnd(end);
     }
 
     public Line(int x1, int y1, int x2, int y2) {
@@ -23,10 +23,12 @@ public class Line implements SimpleFigure{
     }
 
     public void setStartPoint(Point start) {
+        if (start == null) throw new IllegalArgumentException("Start cannot be equals null!");
         this.start = start.clone();
     }
 
     public void setEnd(Point end) {
+        if (end == null) throw new IllegalArgumentException("End cannot be equals null!");
         this.end = end.clone();
     }
 
@@ -59,8 +61,8 @@ public class Line implements SimpleFigure{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Line line = (Line) o;
-        return start.equals(line.start) &&
-                end.equals(line.end);
+        return Objects.equals(start, line.start) &&
+                Objects.equals(end, line.end);
     }
 
     @Override
