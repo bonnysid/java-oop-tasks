@@ -1,6 +1,7 @@
 package com.bonnysid.media;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Song {
@@ -13,17 +14,19 @@ public class Song {
     public Song(String title, Album album, String ...authors) {
         this.title = title;
         setAuthors(authors);
-        this.album = album;
+        setAlbum(album);
     }
 
     public Song(String title, String ...authors) {
         this(title, null, authors);
     }
 
-    public Song setAuthors(String ...authors) {
+    public Song setAuthors(List<String> authors) {
         for(String author : authors) if (author != null) this.authors.add(author);
         return this;
     }
+
+    public Song setAuthors(String ...authors) { return setAuthors(Arrays.asList(authors)); }
 
     public Song setTitle(String title) {
         this.title = title;
@@ -43,7 +46,7 @@ public class Song {
     }
 
     public List<String> getAuthors() {
-        return authors;
+        return new ArrayList<>(authors);
     }
 
     public String getTitle() {

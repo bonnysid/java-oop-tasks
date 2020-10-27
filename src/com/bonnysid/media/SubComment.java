@@ -1,55 +1,54 @@
 package com.bonnysid.media;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import com.bonnysid.structure.Array;
+
+import java.util.*;
 
 public class SubComment extends Comment {
-    private List<SubComment> subComment = new ListOfComments<>();
+    private List<SubComment> subComments = new ArrayList<>();
 
     public SubComment(String value, int rating) {
         super(value, rating);
     }
 
-    public SubComment(String value, int rating, SubComment subComment) {
+    public SubComment(String value, int rating, SubComment... subComments) { this(value, rating, Arrays.asList(subComments)); }
+
+    public SubComment(String value, int rating, List<SubComment> subComments) {
         this(value, rating);
-        this.subComment.add(subComment);
+        this.subComments = new ArrayList<>(subComments);
     }
 
-    public SubComment addSubComment(SubComment subComment) {
-        this.subComment.add(subComment);
+    public SubComment addSubComments(List<SubComment> subComments) {
+        for (SubComment sc : subComments) this.subComments.add(sc.clone());
         return this;
     }
+
+    public SubComment addSubComments(SubComment ...subComments) { return addSubComments(Arrays.asList(subComments)); }
 
     public SubComment addSubComment(String value, int rating) {
-        this.subComment.add(new SubComment(value, rating));
+        this.subComments.add(new SubComment(value, rating));
         return this;
     }
 
-    public List<SubComment> getSubComment() {
-        return subComment;
+    public List<SubComment> getSubComments() {
+        return new ArrayList<>(subComments);
     }
 
     @Override
-    public String toString() {
-        return (subComment == null ? "\t" : "") + super.toString() + (subComment == null ? "" : subComment);
+    public SubComment clone() {
+        return new SubComment(value, getRating(), subComments);
     }
 
-    private class ListOfComments<E> extends ArrayList{
-        @Override
-        public String toString() {
-            Iterator<E> it = iterator();
-            if (! it.hasNext())
-                return "";
+    @Override
+    public String toString() { return toString(0); }
 
-            StringBuilder sb = new StringBuilder();
-            for (;;) {
-                E e = it.next();
-                sb.append(e == this ? "(this Collection)" : e);
-                if (! it.hasNext())
-                    return sb.toString();
-                sb.append(' ');
-            }
+    private String toString(int spaces) {
+        String subCommentsStr = "";
+        for (int i = 0; i < subComments.size(); i++) {
+            int space = i + spaces + 1;
+            subCommentsStr += "\t".repeat(space) + subComments.get(i).toString(space);
         }
+        return super.toString() + subCommentsStr;
     }
+
 }

@@ -17,7 +17,7 @@ public class Employee extends Human{
     }
 
     public Employee changeDepartament(Departament departament) {
-        if (this.departament.getChef() == this) this.departament.setChef(null);
+        if (isChef() && departament != this.departament) this.departament.setChef(null);
         this.departament = departament;
         return this;
     }

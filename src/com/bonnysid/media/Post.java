@@ -133,12 +133,10 @@ public class Post {
                 return "";
 
             StringBuilder sb = new StringBuilder();
-            for (;;) {
+            while (true) {
                 E e = it.next();
                 sb.append(e == this ? "(this Collection)" : e);
-                if (! it.hasNext())
-                    return sb.toString();
-                sb.append(' ');
+                if (! it.hasNext()) return sb.toString();
             }
         }
     }

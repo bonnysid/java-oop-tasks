@@ -207,9 +207,7 @@ public final class Fraction extends Number implements Cloneable {
     }
 
     @Override
-    public Fraction clone() {
-        return new Fraction(numerator, denominator, isAutoReduce);
-    }
+    public Fraction clone() throws CloneNotSupportedException { return (Fraction) super.clone(); }
 
     @Override
     public int intValue() {

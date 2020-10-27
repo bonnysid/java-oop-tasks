@@ -3,6 +3,7 @@ package com.bonnysid.math.geometry;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class PolygonalChain implements SimpleFigure {
     private List<Point> points = new ArrayList<>();
@@ -43,6 +44,19 @@ public class PolygonalChain implements SimpleFigure {
     public PolygonalChain changePoint(int index, Point point) {
         this.points.set(index, point.clone());
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PolygonalChain that = (PolygonalChain) o;
+        return Objects.equals(points, that.points);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(points);
     }
 
     @Override

@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class Line implements SimpleFigure{
+public class Line implements SimpleFigure, Cloneable{
     private Point start;
     private Point end;
 
@@ -45,6 +45,15 @@ public class Line implements SimpleFigure{
         int y = start.get('y') - end.get('y');
         return Math.sqrt(x * x + y * y);
     }
+
+    @Override
+    public Line clone() throws CloneNotSupportedException {
+        Line copy = (Line)super.clone();
+        copy.start = start.clone();
+        copy.end = end.clone();
+        return copy;
+    }
+
 
     @Override
     public List<Point> getAllPoints() {

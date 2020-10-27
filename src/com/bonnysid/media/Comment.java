@@ -25,6 +25,6 @@ public class Comment {
 
     @Override
     public String toString() {
-        return "(" + rating + ") " + value + "\n\t";
+        return "(" + rating + ") " + value + "\n";
     }
 }
