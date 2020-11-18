@@ -2,46 +2,46 @@ package com.bonnysid.math.geometry;
 
 import java.util.*;
 
-public class Point implements Cloneable {
-    private Map<Character, Integer> coords = new HashMap<>(1);
+public class Point<T extends Number> implements Cloneable {
+    private Map<Character, T> coords = new HashMap<>(1);
 
-    public Point(int x) {
+    public Point(T x) {
         coords.put('x', x);
     }
 
-    public Point(int x, int y) {
+    public Point(T x, T y) {
         this(x);
         coords.put('y', y);
     }
 
-    public Point(int x, int y, int z) {
+    public Point(T x, T y, T z) {
         this(x, y);
         coords.put('z', z);
     }
 
-    public Point(Map<Character, Integer> coords) {
-        this.coords = new HashMap<Character, Integer>(coords);
+    public Point(Map<Character, T> coords) {
+        this.coords = new HashMap<Character, T>(coords);
     }
 
-    public Map<Character, Integer> getCoords() {
-        return new HashMap<>(coords);
+    public Map<Character, T> getCoords() {
+        return new HashMap<Character, T>(coords);
     }
 
-    public int get(char coord) {
+    public T get(char coord) {
         if (!checkCoord(coord)) throw new IllegalArgumentException(coord + " is not contains in this point, legal coords: " + coords.keySet());
         return coords.get(coord);
     }
 
-    public Point set(char coord, int value) {
+    public Point<T> set(char coord, T value) {
         if (!checkCoord(coord)) throw new IllegalArgumentException(coord + " is not contains in this point, legal coords: " + coords.keySet());
         coords.replace(coord, value);
         return this;
     }
 
-    public Point addToCoord(char coord, int value) {
-        if (!checkCoord(coord)) throw new IllegalArgumentException(coord + " is not contains in this point, legal coords: " + coords.keySet());
-        return set(coord, get(coord) + value);
-    }
+//    public Point<T> addToCoord(char coord, T value) {
+//        if (!checkCoord(coord)) throw new IllegalArgumentException(coord + " is not contains in this point, legal coords: " + coords.keySet());
+//        return set(coord, get(coord) + value);
+//    }
 
     public boolean isPoint1D() { return coords.size() == 1; }
 
@@ -49,7 +49,7 @@ public class Point implements Cloneable {
 
     public boolean isPoint3D() { return coords.size() == 3; }
 
-    public Point checkPointFor2D() {
+    public Point<T> checkPointFor2D() {
         if (!isPoint2D()) throw new IllegalArgumentException("Point must be 2D!");
         return this;
     }
@@ -65,13 +65,11 @@ public class Point implements Cloneable {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(coords);
-    }
+    public int hashCode() { return Objects.hash(coords); }
 
     @Override
-    public Point clone() {
-        return new Point(coords);
+    public Point<T> clone() {
+        return new Point<T>(coords);
     }
 
     @Override

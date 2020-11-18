@@ -13,7 +13,10 @@ public class Name implements Cloneable {
 
     @Override
     public Name clone() {
-        return new Name.Builder(name).setSurname(surname).setPatronymic(patronymic).build();
+        Name clone = new Name.Builder(name).build();
+        if (!(patronymic == null || patronymic.trim().equals(""))) clone.setPatronymic(patronymic);
+        if (!(surname == null || surname.trim().equals(""))) clone.setPatronymic(surname);
+        return clone;
     }
 
     public static class Builder {

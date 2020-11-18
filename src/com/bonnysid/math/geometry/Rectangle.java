@@ -1,9 +1,9 @@
 package com.bonnysid.math.geometry;
 
-public class Rectangle extends Square {
-    private int lengthSecondSide;
+public class Rectangle<T extends Number> extends Square {
+    private double lengthSecondSide;
 
-    public Rectangle(Point start, int lengthFirstSide, int lengthSecondSide) {
+    public Rectangle(Point<T> start, int lengthFirstSide, int lengthSecondSide) {
         super(start, lengthFirstSide);
         secondLengthSide(lengthSecondSide);
         setOtherPoints(lengthSecondSide);
@@ -11,13 +11,13 @@ public class Rectangle extends Square {
         area(lengthFirstSide, lengthSecondSide);
     }
 
-    public Rectangle secondLengthSide(int secondSide) {
+    public Rectangle<T> secondLengthSide(double secondSide) {
         if (secondSide <= 0) throw new IllegalArgumentException("Length of side cannot be <= zero!");
         this.lengthSecondSide = secondSide;
         return this;
     }
 
-    public int secondLengthSide() { return lengthSecondSide; }
+    public double secondLengthSide() { return lengthSecondSide; }
 
     @Override
     public String toString() {

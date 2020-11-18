@@ -1,19 +1,44 @@
 package com.bonnysid.main;
 
 
-import com.bonnysid.math.geometry.Point;
-import com.bonnysid.media.Comment;
-import com.bonnysid.media.Post;
-import com.bonnysid.media.SubComment;
-import com.bonnysid.structure.Secret;
 
-import java.awt.geom.Point2D;
-import java.math.BigInteger;
+import com.bonnysid.human.MarkChecker;
+import com.bonnysid.math.geometry.Action;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Post p = new Post("Cat", "Text about cats:)", 10);
-        p.addComments(new SubComment("Lol!", 6).addSubComments(new SubComment("wow!", 10).addSubComment("Third comment!", 4)), new SubComment("Fourth", 10)).addTags("cats", "cute");
-        System.out.println(p);
+        MarkChecker<String> ch = new MarkChecker<String>() {
+            @Override
+            public boolean check(String mark) {
+                return mark != null && (mark.trim().toLowerCase().equals("зачтено") || mark.trim().toLowerCase().equals("не зачтено"));
+            }
+
+            @Override
+            public double getValue(String mark) {
+                return mark != null && mark.trim().toLowerCase().equals("зачтено") ? 1 : 0;
+            }
+
+            @Override
+            public boolean checkForExcellent(String mark) {
+                return mark != null && mark.trim().toLowerCase().equals("зачтено");
+            }
+        };
+
+        Action<String, Integer> act = new Action<String, Integer>() {
+            @Override
+            public Integer act(String obj) { return obj.length(); }
+        };
+
+        System.out.println(convert(Arrays.asList("dshhs", "dsf"), act));
+    }
+
+    public static <T, R> List<R> convert(List<T> list, Action<T, R> act) {
+        List<R> res = new ArrayList<>();
+        for(T obj : list) res.add(act.act(obj));
+        return res;
     }
 }

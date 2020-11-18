@@ -2,11 +2,11 @@ package com.bonnysid.math.geometry;
 
 import java.util.List;
 
-public class ClosedPolygonalChain extends PolygonalChain {
+public class ClosedPolygonalChain<T extends Number> extends PolygonalChain {
 
-    public ClosedPolygonalChain(Point ...points) { super(points); }
+    public ClosedPolygonalChain(Point<T> ...points) { super(points); }
 
-    public ClosedPolygonalChain(List<Point> points) { super(points); }
+    public ClosedPolygonalChain(List<Point<T>> points) { super(points); }
 
     @Override
     public double length() {

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Triangle implements Figure {
-    private Point firstPoint;
-    private Point secondPoint;
-    private Point thirdPoint;
+public class Triangle<T extends Number> implements Figure<T> {
+    private Point<T> firstPoint;
+    private Point<T> secondPoint;
+    private Point<T> thirdPoint;
     private double firstLine;
     private double secondLine;
     private double thirdLine;
@@ -15,7 +15,7 @@ public class Triangle implements Figure {
     private double area;
     private double perimeter;
 
-    public Triangle(Point firstPoint, Point secondPoint, Point thirdPoint) {
+    public Triangle(Point<T> firstPoint, Point<T> secondPoint, Point<T> thirdPoint) {
         if (checkForEquals(firstPoint, secondPoint, thirdPoint)) throw new IllegalArgumentException("Points cannot be equals between themselves!");
         this.firstPoint = firstPoint.clone();
         this.secondPoint = secondPoint.clone();
@@ -23,11 +23,11 @@ public class Triangle implements Figure {
         calc();
     }
 
-    public void setSecondPoint(Point p) {
+    public void setSecondPoint(Point<T> p) {
         secondPoint = p.clone();
     }
 
-    public void setThirdPoint(Point p) {
+    public void setThirdPoint(Point<T> p) {
         thirdPoint = p.clone();
     }
 
@@ -40,14 +40,14 @@ public class Triangle implements Figure {
     }
 
     @Override
-    public List<Point> getAllPoints() {
-        return new ArrayList<Point>(Arrays.asList(firstPoint.clone(), secondPoint.clone(), thirdPoint.clone()));
+    public List<Point<T>> getAllPoints() {
+        return new ArrayList<Point<T>>(Arrays.asList(firstPoint.clone(), secondPoint.clone(), thirdPoint.clone()));
     }
 
     @Override
     public PolygonalChain toPolygonalChain() { return new ClosedPolygonalChain(firstPoint.clone(), secondPoint.clone(), thirdPoint.clone()); }
 
-    private void calcLengthLines(Point firstPoint, Point secondPoint, Point thirdPoint) {
+    private void calcLengthLines(Point<T> firstPoint, Point<T> secondPoint, Point<T> thirdPoint) {
         firstLine = calcLengthLine(firstPoint, secondPoint);
         secondLine = calcLengthLine(secondPoint, thirdPoint);
         thirdLine = calcLengthLine(thirdPoint, firstPoint);
@@ -60,7 +60,7 @@ public class Triangle implements Figure {
         area();
     }
 
-    private boolean checkForEquals(Point firstPoint, Point secondPoint, Point thirdPoint) {
+    private boolean checkForEquals(Point<T> firstPoint, Point<T> secondPoint, Point<T> thirdPoint) {
         return firstPoint.equals(secondPoint) || firstPoint.equals(thirdPoint) || secondPoint.equals(thirdPoint);
     }
 
@@ -75,7 +75,7 @@ public class Triangle implements Figure {
     }
 
     @Override
-    public Point getStartPoint() {
+    public Point<T> getStartPoint() {
         return firstPoint.clone();
     }
 
