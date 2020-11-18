@@ -3,7 +3,7 @@ package com.bonnysid.main;
 
 
 import com.bonnysid.human.MarkChecker;
-import com.bonnysid.math.geometry.Action;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,10 +28,7 @@ public class Main {
             }
         };
 
-        Action<String, Integer> act = new Action<String, Integer>() {
-            @Override
-            public Integer act(String obj) { return obj.length(); }
-        };
+        Action<String, Integer> act = (String::length);
 
         System.out.println(convert(Arrays.asList("dshhs", "dsf"), act));
     }
