@@ -3,14 +3,14 @@ package com.bonnysid.math.geometry;
 import java.util.Arrays;
 import java.util.List;
 
-public interface SimpleFigure {
+public interface SimpleFigure<T extends Number> {
     double length();
 
-    Point getStartPoint();
+    Point<T> getStartPoint();
 
-    void setStartPoint(Point p);
+    void setStartPoint(Point<T> p);
 
-    List<Point> getAllPoints();
+    List<Point<T>> getAllPoints();
 
     PolygonalChain toPolygonalChain();
 
@@ -20,9 +20,9 @@ public interface SimpleFigure {
                 .reduce(0., Double::sum);
     }
 
-    default double calcLengthLine(Point start, Point end) {
-        int x = start.get('x') - end.get('x');
-        int y = start.get('y') - end.get('y');
+    default double calcLengthLine(Point<T> start, Point<T> end) {
+        double x = start.get('x').doubleValue() - end.get('x').doubleValue();
+        double y = start.get('y').doubleValue() - end.get('y').doubleValue();
         return Math.sqrt(x * x + y * y);
     }
 

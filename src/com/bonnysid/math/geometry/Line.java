@@ -5,44 +5,50 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+<<<<<<< HEAD
 public class Line implements Moveable, SimpleFigure, Cloneable{
     private Point start;
     private Point end;
+=======
+public class Line<T extends Number> implements SimpleFigure<T>, Cloneable{
+    private Point<T> start;
+    private Point<T> end;
+>>>>>>> 14465bb9392e7cb106cd8bcee163ae8853d29aba
 
-    public Line(Point start, Point end) {
+    public Line(Point<T> start, Point<T> end) {
         setStartPoint(start);
         setEnd(end);
     }
 
-    public Line(int x1, int y1, int x2, int y2) {
-        this(new Point(x1, y1), new Point(x2, y2));
+    public Line(T x1, T y1, T x2, T y2) {
+        this(new Point<T>(x1, y1), new Point<T>(x2, y2));
     }
 
-    public Line(Point end){
-        this(new Point(0,0), end);
-    }
+//    public Line(Point<T> end){
+//        this(new Point<T>(0,0), end);
+//    }
 
-    public void setStartPoint(Point start) {
+    public void setStartPoint(Point<T> start) {
         if (start == null) throw new IllegalArgumentException("Start cannot be equals null!");
         this.start = start.clone();
     }
 
-    public void setEnd(Point end) {
+    public void setEnd(Point<T> end) {
         if (end == null) throw new IllegalArgumentException("End cannot be equals null!");
         this.end = end.clone();
     }
 
-    public Point getStartPoint() {
+    public Point<T> getStartPoint() {
         return start;
     }
 
-    public Point getEnd() {
+    public Point<T> getEnd() {
         return end;
     }
 
     public double length() {
-        int x = start.get('x') - end.get('x');
-        int y = start.get('y') - end.get('y');
+        double x = start.get('x').doubleValue() - end.get('x').doubleValue();
+        double y = start.get('y').doubleValue() - end.get('y').doubleValue();
         return Math.sqrt(x * x + y * y);
     }
 
@@ -52,8 +58,8 @@ public class Line implements Moveable, SimpleFigure, Cloneable{
     }
 
     @Override
-    public Line clone() throws CloneNotSupportedException {
-        Line copy = (Line)super.clone();
+    public Line<T> clone() throws CloneNotSupportedException {
+        Line<T> copy = (Line<T>)super.clone();
         copy.start = start.clone();
         copy.end = end.clone();
         return copy;
@@ -61,7 +67,7 @@ public class Line implements Moveable, SimpleFigure, Cloneable{
 
 
     @Override
-    public List<Point> getAllPoints() {
+    public List<Point<T>> getAllPoints() {
         return new ArrayList<>(Arrays.asList(start, end));
     }
 
@@ -74,7 +80,7 @@ public class Line implements Moveable, SimpleFigure, Cloneable{
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Line line = (Line) o;
+        Line<T> line = (Line<T>) o;
         return Objects.equals(start, line.start) &&
                 Objects.equals(end, line.end);
     }

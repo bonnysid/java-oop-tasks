@@ -1,14 +1,14 @@
 package com.bonnysid.human;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class Student extends Human{
-    private List<Integer> marks = new ArrayList<>();
+public class Student<T> extends Human{
+    private List<T> marks = new ArrayList<>();
     private boolean isExcellent = false;
-    private final static List<Integer> badMarks = new ArrayList<>(Arrays.asList(2, 3, 4));
+//    private final static List<Integer> badMarks = new ArrayList<>(Arrays.asList(2, 3, 4));
+    private MarkChecker<T> ch;
 
     public Student(Name fullName, int height) {
         this(fullName, height, null);
@@ -18,33 +18,33 @@ public class Student extends Human{
         this(fullName, 170, null);
     }
 
-    public Student(Name fullName, int height, int ...marks) {
+    public Student(Name fullName, int height, MarkChecker<T> ch, T ...marks) {
         super(fullName, height);
+        this.ch = ch;
         addMarks(marks);
     }
 
-    public List<Integer> getMarks() {
-        return new ArrayList<>(marks);
+    public List<T> getMarks() {
+        return new ArrayList<T>(marks);
     }
 
-    public Student addMarks(int ...marks) {
-        for (int mark : marks) {
-            checkMark(mark);
-            this.marks.add(mark);
+    public Student<T> addMarks(T ...marks) {
+        for (T mark : marks) {
+            if (ch.check(mark)) this.marks.add(mark);
         }
         checkForExcellent();
         return this;
     }
 
-    public Student addMarks(List<Integer> marks) {
-        for (int mark : marks) checkMark(mark);
+    public Student<T> addMarks(List<T> marks) {
+        for (T mark : marks) ch.check(mark);
         this.marks.addAll(marks);
         checkForExcellent();
         return this;
     }
 
-    public Student changeMark(int index, int mark) {
-        checkMark(mark);
+    public Student<T> changeMark(int index, T mark) {
+        ch.check(mark);
         marks.set(index, mark);
         checkForExcellent();
         return this;
@@ -52,15 +52,15 @@ public class Student extends Human{
 
     public double getAvgMarks() {
         if (marks.isEmpty()) return 0;
-        int res = 0;
-        for (int mark : marks) res += mark;
+        double res = 0;
+        for (T mark : marks) res += ch.getValue(mark);
         return res / marks.size();
     }
 
     private void checkForExcellent() {
         if (!marks.isEmpty()) {
-            for( int mark : marks) {
-                if (badMarks.contains(mark)) {
+            for( T mark : marks) {
+                if (!ch.checkForExcellent(mark)) {
                     isExcellent = false;
                     return;
                 }

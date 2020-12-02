@@ -4,20 +4,20 @@ import com.bonnysid.date.Time;
 
 import java.util.Objects;
 
-public class PointTime extends Point {
+public class PointTime<T extends Number> extends Point<T> {
     Time time;
 
-    public PointTime(int x, Time time) {
+    public PointTime(T x, Time time) {
         super(x);
         this.time = time;
     }
 
-    public PointTime(int x, int y, Time time) {
+    public PointTime(T x, T y, Time time) {
         super(x, y);
         this.time = time;
     }
 
-    public PointTime(int x, int y, int z, Time time) {
+    public PointTime(T x, T y, T z, Time time) {
         super(x, y, z);
         this.time = time;
     }
@@ -31,7 +31,7 @@ public class PointTime extends Point {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        PointTime pointTime = (PointTime) o;
+        PointTime<T> pointTime = (PointTime<T>) o;
         return Objects.equals(time, pointTime.time);
     }
 

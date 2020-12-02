@@ -2,7 +2,7 @@ package com.bonnysid.math.geometry;
 
 import java.util.Arrays;
 
-public interface Figure extends SimpleFigure {
+public interface Figure<T extends Number> extends SimpleFigure {
     double perimeter();
 
     double area();
