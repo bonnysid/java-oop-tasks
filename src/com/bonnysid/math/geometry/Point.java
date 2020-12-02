@@ -2,7 +2,7 @@ package com.bonnysid.math.geometry;
 
 import java.util.*;
 
-public class Point implements Cloneable {
+public class Point<T extends Number> implements Cloneable {
     private Map<Character, Integer> coords = new HashMap<>(1);
 
     public Point(int x) {
@@ -51,6 +51,12 @@ public class Point implements Cloneable {
 
     public Point checkPointFor2D() {
         if (!isPoint2D()) throw new IllegalArgumentException("Point must be 2D!");
+        return this;
+    }
+
+    public Point move(int x, int y) {
+        coords.replace('x', coords.get('x') + x);
+        coords.replace('y', coords.get('y') + y);
         return this;
     }
 

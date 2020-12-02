@@ -211,12 +211,13 @@ public final class Fraction extends Number implements Cloneable {
 
     @Override
     public int intValue() {
+        if(denominator == 0) throw new FractionException("This fraction cannot be casted to int!", new ArithmeticException());
         return numerator / denominator;
     }
 
     @Override
     public long longValue() {
-        return (long)numerator / (long)denominator;
+        return intValue();
     }
 
     @Override

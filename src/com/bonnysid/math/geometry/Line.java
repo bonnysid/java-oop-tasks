@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class Line implements SimpleFigure, Cloneable{
+public class Line implements Moveable, SimpleFigure, Cloneable{
     private Point start;
     private Point end;
 
@@ -44,6 +44,11 @@ public class Line implements SimpleFigure, Cloneable{
         int x = start.get('x') - end.get('x');
         int y = start.get('y') - end.get('y');
         return Math.sqrt(x * x + y * y);
+    }
+
+    public void move(int x, int y) {
+        start.move(x, y);
+        end.move(x, y);
     }
 
     @Override

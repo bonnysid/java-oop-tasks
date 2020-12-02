@@ -19,4 +19,5 @@ public class Cat implements Mewable {
         System.out.println(message + "!");
     }
 
+    public String name() { return name; }
 }

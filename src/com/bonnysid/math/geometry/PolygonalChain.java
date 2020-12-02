@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class PolygonalChain implements SimpleFigure {
+public class PolygonalChain implements Moveable, SimpleFigure {
     private List<Point> points = new ArrayList<>();
 
     public PolygonalChain (Point...points) {
@@ -44,6 +44,10 @@ public class PolygonalChain implements SimpleFigure {
     public PolygonalChain changePoint(int index, Point point) {
         this.points.set(index, point.clone());
         return this;
+    }
+
+    public void move(int x, int y) {
+        points.forEach(point -> point.move(x, y));
     }
 
     @Override
